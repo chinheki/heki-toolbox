@@ -1,0 +1,51 @@
+'use strict';
+const categories=['效率办公','文件传输','健康生活','休闲娱乐'];
+const paths={grid:'<rect x="3" y="3" width="6" height="6" rx="1.5"/><rect x="15" y="3" width="6" height="6" rx="1.5"/><rect x="3" y="15" width="6" height="6" rx="1.5"/><rect x="15" y="15" width="6" height="6" rx="1.5"/>',star:'<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/>',doc:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',send:'<rect x="3" y="3" width="7" height="12" rx="2"/><path d="M6 18h13V8h-5M10 10h7m-3-3 3 3-3 3"/><path d="M10 21h6"/>',box:'<path d="m3 7 9-4 9 4v12l-9 3-9-3Z"/><path d="m3 7 9 4 9-4M12 11v11M8 5l9 4"/>',fitness:'<path d="M7 5v14M3 8v8M17 5v14M21 8v8M7 12h10"/>',money:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2m4 0h2M8 16h2m4 0h2"/>',note:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 3v18M12 8h4M12 12h4M12 16h2"/>',word:'<rect x="3" y="4" width="13" height="16" rx="2"/><path d="M16 6h3a2 2 0 0 1 2 2v12M6 15l3-7 3 7M7 13h4"/>',game:'<path d="M7 8h10a5 5 0 0 1 4 8l-1 2a2 2 0 0 1-3 0l-2-2H9l-2 2a2 2 0 0 1-3 0l-1-2A5 5 0 0 1 7 8Z"/><path d="M8 10v5M5.5 12.5h5M16 11h.01M18 14h.01M12 8V4"/>',heart:'<path d="M20 5a5 5 0 0 0-8 1 5 5 0 0 0-8-1c-5 5 3 11 8 15 5-4 13-10 8-15Z"/><path d="M5 12h4l2-4 2 7 2-3h4"/>'};
+const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]||paths.grid}</svg>`;
+const defaults=[
+{id:'paperform',name:'纸间',english:'Paperform',description:'把 Markdown 变成整洁的 PDF，让文档排版更从容。',category:'效率办公',url:'https://paperform-resume-studio.dapperpond4.chatgpt.site',icon:'doc',color:'#6e80b5',tint:'#edf0fa',status:'online',keywords:'markdown pdf 简历 排版 文档'},
+{id:'photodrop',name:'随心传',english:'PhotoDrop',description:'手机照片、文字和文件，轻松传到电脑。支持 HEIC 自动转换。',category:'文件传输',url:'http://192.168.68.61:19091/',icon:'send',color:'#a58a5f',tint:'#f6f0e5',status:'local',keywords:'iphone android png jpg 图片 二维码',fresh:true},
+{id:'home',name:'归处',english:'Home Nook',description:'给物品一个位置，让全屋收纳和日常补货井井有条。',category:'健康生活',url:'https://home-nook-storage.dapperpond4.chatgpt.site',icon:'box',color:'#6f9274',tint:'#edf3e9',status:'online',keywords:'收纳 物品 家居 补货'},
+{id:'fitness',name:'健身卡册',english:'Fit Cardbook',description:'收集健身截图，整理成自己的训练卡片，随时打开跟练。',category:'健康生活',url:'https://chinheki.github.io/fitness-cardbook/',icon:'fitness',color:'#bc8875',tint:'#faf0e9',status:'online',keywords:'运动 截图 训练 卡片'},
+{id:'divvy',name:'一起算',english:'Divvy Up',description:'聚餐、旅行、朋友小聚，把团体账目算得清清楚楚。',category:'效率办公',url:'https://chinheki.github.io/divvy-up-web/',icon:'money',color:'#81956a',tint:'#f0f4e7',status:'online',keywords:'分账 算账 AA 钱 费用'},
+{id:'suishouji',name:'随手记',english:'Suishouji',description:'记录日常的实验和尝试，给每一个小发现留个位置。',category:'效率办公',url:'https://chinheki.github.io/suishouji/',icon:'note',color:'#9c8aaa',tint:'#f3eff7',status:'online',keywords:'记录 笔记 实验'},
+{id:'word',name:'词语归位',english:'Word Solitaire',description:'给词语找到同伴，在分类与联想之间，享受一点解谜时间。',category:'休闲娱乐',url:'https://chinheki.github.io/word-category-solitaire/',icon:'word',color:'#6d9c9b',tint:'#ebf4f2',status:'online',keywords:'游戏 词语 接龙 分类 联想'},
+{id:'pairs',name:'Pairs Pong',english:'',description:'打开就能玩的小游戏，给忙碌的一天留一点轻松。',category:'休闲娱乐',url:'https://chinheki.github.io/pairs-pong/',icon:'game',color:'#b29463',tint:'#f7f1e6',status:'online',keywords:'游戏 休息 小游戏'},
+{id:'train',name:'训练备忘',english:'Train Memo',description:'把训练记录放在手边，随时回到自己的运动节奏。',category:'健康生活',url:'https://chinheki.github.io/train-memo/',icon:'heart',color:'#9280ac',tint:'#f2eef8',status:'online',keywords:'运动 健身 备忘 记录'}
+];
+const $=id=>document.getElementById(id);
+const escapeHTML=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const validUrl=value=>{try{return ['https:','http:'].includes(new URL(value).protocol);}catch{return false;}};
+function read(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}}
+let tools=read('heki-tools-v1',defaults);if(!Array.isArray(tools))tools=defaults;
+tools=tools.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string'&&typeof t.description==='string'&&categories.includes(t.category)&&validUrl(t.url));
+let favorites=read('heki-favorites-v1',['paperform','photodrop','home']);if(!Array.isArray(favorites))favorites=[];
+let category='全部工具',favoriteOnly=false,query='';let toastTimer;
+function toast(message){$('toast').textContent=message;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2300);}
+function persist(){try{localStorage.setItem('heki-tools-v1',JSON.stringify(tools));localStorage.setItem('heki-favorites-v1',JSON.stringify(favorites));return true;}catch{toast('浏览器未允许保存，这次修改仅在本页有效');return false;}}
+function choose(value){favoriteOnly=value==='我的收藏';category=favoriteOnly?'全部工具':value;render();}
+function render(){
+ $('total-count').textContent=tools.length;
+ const counts=Object.fromEntries(categories.map(c=>[c,tools.filter(t=>t.category===c).length]));
+ const navItems=[['全部工具','grid',tools.length],['我的收藏','star',tools.filter(t=>favorites.includes(t.id)).length],...categories.map((c,i)=>[c,['doc','send','heart','game'][i],counts[c]])];
+ $('sidebar-nav').innerHTML=navItems.map(([name,symbol,count],index)=>`${index===2?'<div class="nav-separator"></div>':''}<button class="nav-button ${((favoriteOnly&&name==='我的收藏')||(!favoriteOnly&&name===category))?'active':''}" data-category="${name}" ${((favoriteOnly&&name==='我的收藏')||(!favoriteOnly&&name===category))?'aria-current="page"':''}>${icon(symbol)}<span>${name}</span><b>${count}</b></button>`).join('');
+ $('filters').innerHTML=['全部工具',...categories,'我的收藏'].map(c=>`<button class="filter ${((favoriteOnly&&c==='我的收藏')||(!favoriteOnly&&c===category))?'active':''}" data-category="${c}" aria-pressed="${(favoriteOnly&&c==='我的收藏')||(!favoriteOnly&&c===category)}">${c}<small>${c==='全部工具'?tools.length:c==='我的收藏'?tools.filter(t=>favorites.includes(t.id)).length:counts[c]}</small></button>`).join('');
+ document.querySelectorAll('[data-category]').forEach(el=>el.onclick=()=>choose(el.dataset.category));
+ let visible=tools.filter(t=>(category==='全部工具'||t.category===category)&&(!favoriteOnly||favorites.includes(t.id))&&`${t.name} ${t.english||''} ${t.description} ${t.keywords||''} ${t.category}`.toLowerCase().includes(query));
+ if($('sort').value==='name')visible.sort((a,b)=>a.name.localeCompare(b.name,'zh-CN'));
+ $('section-title').replaceChildren(document.createTextNode(favoriteOnly?'我的收藏':category));const badge=document.createElement('span');badge.textContent=visible.length;$('section-title').append(badge);
+ $('section-note').textContent=query?`搜索“${$('search').value}”的结果`:'让合适的工具，出现在需要的时候。';
+ $('empty').hidden=visible.length>0;
+ $('cards').innerHTML=visible.map(t=>{const active=favorites.includes(t.id);const label=t.status==='local'?'局域网打开':t.status==='project'?'查看项目':'打开工具';const id=escapeHTML(t.id);return `<article class="card"><div class="card-top"><div class="tool-icon" style="--color:${/^#[0-9a-f]{6}$/i.test(t.color)?t.color:'#779166'};--tint:${/^#[0-9a-f]{6}$/i.test(t.tint)?t.tint:'#eff3e8'}">${icon(t.icon)}</div><div class="card-actions"><button class="star ${active?'active':''}" data-favorite="${id}" aria-pressed="${active}" aria-label="${active?'取消收藏':'收藏'}${escapeHTML(t.name)}">${active?'★':'☆'}</button><button class="edit" data-edit="${id}" aria-label="编辑${escapeHTML(t.name)}" title="编辑工具">⋯</button></div></div><a class="card-link" href="${escapeHTML(t.url)}" target="_blank" rel="noopener noreferrer" ${t.status==='local'?'title="需要与运行工具的电脑连接同一局域网"':''}><h3>${escapeHTML(t.name)} ${t.fresh?'<span class="new-label">NEW</span>':`<span>${escapeHTML(t.english||'')}</span>`}</h3><p>${escapeHTML(t.description)}</p><div class="card-bottom"><span class="category-tag">${escapeHTML(t.category)}</span><span class="card-open ${t.status==='local'?'local':t.status==='project'?'project':''}">${label}<span>↗</span></span></div></a></article>`;}).join('');
+ document.querySelectorAll('[data-favorite]').forEach(button=>button.onclick=()=>{const id=button.dataset.favorite;favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];persist();render();});
+ document.querySelectorAll('[data-edit]').forEach(button=>button.onclick=()=>openEditor(button.dataset.edit));
+}
+$('search').addEventListener('input',()=>{query=$('search').value.trim().toLowerCase();render();});$('sort').onchange=render;
+document.addEventListener('keydown',event=>{if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==='k'){event.preventDefault();$('search').focus();}});
+$('clear-filter').onclick=()=>{$('search').value='';query='';choose('全部工具');};
+$('tool-category').innerHTML=categories.map(c=>`<option>${c}</option>`).join('');
+function openEditor(id){const tool=tools.find(t=>t.id===id);$('editor-title').textContent=tool?'编辑小工具':'添加小工具';$('edit-id').value=tool?.id||'';$('tool-name').value=tool?.name||'';$('tool-url').value=tool?.url||'';$('tool-description').value=tool?.description||'';$('tool-category').value=tool?.category||categories[0];$('tool-status').value=tool?.status||'online';$('delete-tool').hidden=!tool;$('editor').showModal();}
+$('add-tool').onclick=()=>openEditor();$('close-editor').onclick=()=>$('editor').close();
+$('tool-form').onsubmit=event=>{event.preventDefault();if(!validUrl($('tool-url').value)){toast('请输入 http 或 https 开头的地址');return;}const id=$('edit-id').value;const existing=tools.find(t=>t.id===id);const tool={...existing,id:id||`custom-${Date.now()}-${Math.random().toString(36).slice(2,7)}`,name:$('tool-name').value.trim(),url:$('tool-url').value.trim(),description:$('tool-description').value.trim(),category:$('tool-category').value,status:$('tool-status').value,icon:existing?.icon||'grid',color:existing?.color||'#779166',tint:existing?.tint||'#eff3e8'};if(!tool.name||!tool.description)return;if(existing)tools=tools.map(t=>t.id===id?tool:t);else tools.push(tool);persist();$('editor').close();render();toast('工具已保存到当前浏览器');};
+$('delete-tool').onclick=()=>{const id=$('edit-id').value;tools=tools.filter(t=>t.id!==id);favorites=favorites.filter(x=>x!==id);persist();$('editor').close();render();toast('卡片已移除，工具本身不受影响');};
+render();
