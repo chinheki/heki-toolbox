@@ -6,3 +6,14 @@
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 .brand-name{font-size:18px;letter-spacing:0;white-space:nowrap}.brand-name .brand-sub{letter-spacing:1.8px;font-size:7px;margin-top:0}
+
+/* Card-first layout with a floating bottom search dock. */
+.workspace>header,.intro,.section-heading,main>footer{display:none!important}
+main{padding-top:24px;padding-bottom:150px}
+.tools-section{padding-bottom:0}
+.filters{display:none}
+.toolbar{position:fixed;z-index:20;left:calc(var(--sidebar) + (100vw - var(--sidebar))/2);bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(760px,calc(100vw - var(--sidebar) - 64px));margin:0;padding:10px;gap:12px;border:1px solid #dce4d3;border-radius:17px;background:#f5f7f0ed;box-shadow:0 12px 45px #243d3224;backdrop-filter:blur(18px)}
+.toolbar .search{height:44px;box-shadow:none}
+.toolbar .add-button{white-space:nowrap;padding:12px 14px}
+#toast{bottom:120px}
+@media(max-width:720px){.sidebar{display:none}main{padding:16px 16px 170px}.toolbar{left:50%;width:calc(100vw - 24px);bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:8px;gap:7px;border-radius:14px}.toolbar .search{height:44px}.toolbar .sort-wrap{display:none}.toolbar .add-button{font-size:10px;padding:12px 10px}.filters{display:flex;position:fixed;z-index:19;bottom:calc(84px + env(safe-area-inset-bottom,0px));left:12px;width:calc(100vw - 24px);flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;padding:7px;border:1px solid #dfe5d7;border-radius:11px;background:#f5f7f0ed;backdrop-filter:blur(16px);box-shadow:0 6px 20px #243d320c;scrollbar-width:none}.filter{flex-shrink:0}.cards{gap:12px}.card-actions .edit{display:block}#toast{bottom:150px}}
